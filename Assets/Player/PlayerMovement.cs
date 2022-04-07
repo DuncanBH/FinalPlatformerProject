@@ -4,21 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    float inputX;
-    float inputY;
-
-    bool inputJump;
-    bool inputAttack;
-
-    bool attacking;
-
-    new Transform transform;
-    new Rigidbody2D rigidbody;
-    new Collider2D collider;
-    new Animator animator;
     
-    private int _layerMask;
-
     [SerializeField]
     private float speedModif = 10f;
     [SerializeField]
@@ -27,6 +13,28 @@ public class PlayerMovement : MonoBehaviour
     private float jumpHeight = 10f;
     [SerializeField]
     private float groundCheckDistance;
+    [SerializeField]
+    private float decelerateTime = 1f;
+
+    new Transform transform;
+    new Rigidbody2D rigidbody;
+    new Collider2D collider;
+    Animator animator;
+
+    private int _layerMask;
+
+    float inputX;
+    float inputY;
+
+    bool inputJump;
+    bool inputAttack;
+
+    bool attacking;
+    bool jumping;
+    bool facingRight;
+
+    float slowDownTime;
+    
 
     void Awake()
     {
@@ -38,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
         _layerMask = ~LayerMask.GetMask("Player");
     }
 
-    void Update()
+    private void FixedUpdate()
     {
         inputX = Input.GetAxisRaw("Horizontal");
         inputY = Input.GetAxisRaw("Vertical");
@@ -49,12 +57,42 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, _layerMask);
         Debug.DrawRay(transform.position, Vector2.down * groundCheckDistance, Color.red);
 
-        if (inputJump && raycastHit) 
+        //Jumping
+        if (inputJump && raycastHit && !jumping)
         {
-            rigidbody.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
+            jumping = true;
+            StartCoroutine(Jump());
         }
+
+        //Grounded anti-slip
+        if (raycastHit && inputX == 0)
+        {
+            Vector2 target = new Vector2(0, rigidbody.velocity.y);
+            rigidbody.velocity = Vector2.Lerp(rigidbody.velocity, target, slowDownTime/decelerateTime);
+            slowDownTime += Time.fixedDeltaTime;
+        }
+        else
+        {
+            slowDownTime = 0f;
+        }
+
         rigidbody.velocity += new Vector2(inputX, 0) * speedModif * Time.deltaTime;
 
+        //Turning around 
+        if (raycastHit && facingRight && rigidbody.velocity.x < 0) 
+        {
+            print("turning to left");
+            facingRight = false;
+            transform.rotation = Quaternion.Euler(0 ,180, 0);
+        }
+        else if (raycastHit && !facingRight && rigidbody.velocity.x > 0)
+        {
+            print("turning to right");
+            facingRight = true;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+
+        //Falling
         if (rigidbody.velocity.y < 0)
         {
             rigidbody.gravityScale = fallModif;
@@ -64,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
             rigidbody.gravityScale = 1f;
         }
 
+        //Attacking
         if (inputAttack && !attacking)
         {
             attacking = true;
@@ -74,13 +113,17 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("IsAttacking?", false);
         }
-
-
     }
 
     IEnumerator Attack()
     {
         yield return new WaitForSeconds(0.05f);
         attacking = false;
+    }
+    IEnumerator Jump()
+    {
+        rigidbody.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(0.75f);
+        jumping = false;
     }
 }
