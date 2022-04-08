@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float groundCheckDistance;
     [SerializeField]
-    private float decelerateTime = 1f;
+    private float decelerationTime = 1f;
 
     new Transform transform;
     new Rigidbody2D rigidbody;
@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     bool jumping;
     bool facingRight;
 
-    float slowDownTime;
+    float slowDownTimer;
     
 
     void Awake()
@@ -65,32 +65,37 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Grounded anti-slip
-        if (raycastHit && inputX == 0)
+        if (raycastHit && //if grounded
+                (inputX == 0 //if input released
+                || (rigidbody.velocity.x > 0 && inputX < 0) //if moving right but holding left
+                || (rigidbody.velocity.x < 0 && inputX > 0) //if moving left but holding right
+                )
+            )
         {
             Vector2 target = new Vector2(0, rigidbody.velocity.y);
-            rigidbody.velocity = Vector2.Lerp(rigidbody.velocity, target, slowDownTime/decelerateTime);
-            slowDownTime += Time.fixedDeltaTime;
+            rigidbody.velocity = Vector2.Lerp(rigidbody.velocity, target, slowDownTimer / decelerationTime);
+            slowDownTimer += Time.fixedDeltaTime;
         }
         else
         {
-            slowDownTime = 0f;
+            slowDownTimer = 0f;
         }
 
         rigidbody.velocity += new Vector2(inputX, 0) * speedModif * Time.deltaTime;
 
         //Turning around 
-        if (raycastHit && facingRight && rigidbody.velocity.x < 0) 
+        if (!facingRight && raycastHit && rigidbody.velocity.x > 0)
+        {
+            print("turning to right");
+            facingRight = true;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }else if (facingRight && raycastHit && rigidbody.velocity.x < 0) 
         {
             print("turning to left");
             facingRight = false;
             transform.rotation = Quaternion.Euler(0 ,180, 0);
         }
-        else if (raycastHit && !facingRight && rigidbody.velocity.x > 0)
-        {
-            print("turning to right");
-            facingRight = true;
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
+        
 
         //Falling
         if (rigidbody.velocity.y < 0)
