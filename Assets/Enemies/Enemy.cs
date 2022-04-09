@@ -17,8 +17,8 @@ public class Enemy : MonoBehaviour, IDamagable
 
         if (Health < 0)
         {
+            //Play Death animation
             animator.Play("Base Layer.EnemyDie", 0);
-            //entityDie();
         }
     }
 
@@ -31,8 +31,10 @@ public class Enemy : MonoBehaviour, IDamagable
     {
         
     }
-
-    private void entityDie()
+    /// <summary>
+    /// Removes the entity. Called from animation event on EntityDie
+    /// </summary>
+    private void EntityDie()
     {
         Destroy(this.gameObject);
     }

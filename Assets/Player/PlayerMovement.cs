@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     Animator animator;
 
     private int _layerMask;
+    private bool _isGrounded;
+    public bool IsGrounded { get { return _isGrounded; } }
 
     float inputX;
     float inputY;
@@ -31,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     bool attacking;
     bool jumping;
-    bool facingRight;
+    bool facingRight = true;
 
     float slowDownTimer;
     
@@ -43,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         collider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
 
-        _layerMask = ~LayerMask.GetMask("Player");
+        _layerMask = ~(LayerMask.GetMask("Player") | LayerMask.GetMask("CameraBounds")) ;
     }
 
     private void FixedUpdate()
@@ -54,49 +56,64 @@ public class PlayerMovement : MonoBehaviour
         inputJump = Input.GetAxisRaw("Jump") == 1 ? true : false;
         inputAttack = Input.GetAxisRaw("Fire1") == 1 ? true : false;
 
+        //Groundcheck raycast
         RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, _layerMask);
         Debug.DrawRay(transform.position, Vector2.down * groundCheckDistance, Color.red);
 
+        _isGrounded = raycastHit;
+
+
         //Jumping
-        if (inputJump && raycastHit && !jumping)
+        if (inputJump && _isGrounded && !jumping)
         {
             jumping = true;
             StartCoroutine(Jump());
         }
 
         //Grounded anti-slip
-        if (raycastHit && //if grounded
+        if (_isGrounded && 
                 (inputX == 0 //if input released
                 || (rigidbody.velocity.x > 0 && inputX < 0) //if moving right but holding left
                 || (rigidbody.velocity.x < 0 && inputX > 0) //if moving left but holding right
                 )
             )
         {
-            Vector2 target = new Vector2(0, rigidbody.velocity.y);
+            Vector2 target = new Vector2(0f, rigidbody.velocity.y);
             rigidbody.velocity = Vector2.Lerp(rigidbody.velocity, target, slowDownTimer / decelerationTime);
             slowDownTimer += Time.fixedDeltaTime;
+
+            //"Close Enough" slowdown fudging
+            if (Mathf.Abs(rigidbody.velocity.x) < 0.001f)
+            {
+                rigidbody.velocity = target;
+            }
         }
         else
         {
             slowDownTimer = 0f;
         }
 
-        rigidbody.velocity += new Vector2(inputX, 0) * speedModif * Time.deltaTime;
-
-        //Turning around 
-        if (!facingRight && raycastHit && rigidbody.velocity.x > 0)
+        //Apply movement
+        if ( Mathf.Abs(rigidbody.velocity.x) <= speedModif)
         {
-            print("turning to right");
+            rigidbody.velocity += new Vector2(inputX * speedModif, 0) * Time.deltaTime;
+        }
+
+        //Send current velocity to animator
+        animator.SetFloat("AbsPlayerVelocityX", Mathf.Abs(rigidbody.velocity.x));
+
+        float VelX = rigidbody.velocity.x;
+        //Turning around 
+        if (!facingRight && _isGrounded && VelX > 0)
+        {
             facingRight = true;
             transform.rotation = Quaternion.Euler(0, 0, 0);
-        }else if (facingRight && raycastHit && rigidbody.velocity.x < 0) 
+        }else if (facingRight && _isGrounded && VelX < 0) 
         {
-            print("turning to left");
             facingRight = false;
             transform.rotation = Quaternion.Euler(0 ,180, 0);
         }
         
-
         //Falling
         if (rigidbody.velocity.y < 0)
         {
