@@ -10,7 +10,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float fallModif = 2f;
     [SerializeField]
-    private float jumpPower = 2f;
+    private float initialJumpPower = 2f;
+    [SerializeField]
+    private float sustainedJumpPower = 2f;
     [SerializeField]
     private float jumpTimeMax = 0.75f;
     [SerializeField]
@@ -42,8 +44,6 @@ public class PlayerMovement : MonoBehaviour
     //Internal Variables
     private int _layerMask;
     private bool _isGrounded;
-    public bool IsGrounded { get { return _isGrounded; } }
-
     private float _slowDownTimer = 0.0f;
     private float _jumpTime = 0.0f;
 
@@ -56,8 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
         _layerMask = ~(LayerMask.GetMask("Player") | LayerMask.GetMask("CameraBounds")) ;
     }
-
-    private void FixedUpdate()
+    private void Update()
     {
         inputX = Input.GetAxisRaw("Horizontal");
         inputY = Input.GetAxisRaw("Vertical");
@@ -65,6 +64,9 @@ public class PlayerMovement : MonoBehaviour
         inputJump = Input.GetAxisRaw("Jump") == 1 ? true : false;
         inputAttack = Input.GetAxisRaw("Fire1") == 1 ? true : false;
 
+    }
+    private void FixedUpdate()
+    {
         //Groundcheck raycast
         RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, _layerMask);
         Debug.DrawRay(transform.position, Vector2.down * groundCheckDistance, Color.red);
@@ -78,11 +80,7 @@ public class PlayerMovement : MonoBehaviour
             jumping = true;
             _jumpTime = 0.0f;
             StartCoroutine(Jump());
-        } else if (jumping){
-            _jumpTime += Time.fixedDeltaTime;
-            StartCoroutine(Jump());
         }
-        Debug.Log(_jumpTime);
 
         //Grounded anti-slip
         if (_isGrounded && 
@@ -160,12 +158,13 @@ public class PlayerMovement : MonoBehaviour
     {
         do
         {
-            float jumpForce = Mathf.Lerp( 0, jumpPower, jumpTimeMax - _jumpTime);
-            print(jumpForce);
-            rigidbody.AddForce(Vector2.up * jumpForce);
-            yield return null;
+            print("Jumptime: " + _jumpTime);
+            rigidbody.AddForce(Vector2.up * initialJumpPower);
+            _jumpTime += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
         } while ((inputJump && _jumpTime < jumpTimeMax)|| _jumpTime < jumpTimeMin) ;
 
+        yield return new WaitForSeconds(0.75f);
         jumping = false;
     }
 }
