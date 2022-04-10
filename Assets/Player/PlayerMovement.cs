@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float fallModif = 2f;
     [SerializeField]
-    private float intialJumpPower = 2f;
+    private float initialJumpPower = 2f;
     [SerializeField]
     private float sustainedJumpPower = 2f;
     [SerializeField]
@@ -44,8 +44,6 @@ public class PlayerMovement : MonoBehaviour
     //Internal Variables
     private int _layerMask;
     private bool _isGrounded;
-    public bool IsGrounded { get { return _isGrounded; } }
-
     private float _slowDownTimer = 0.0f;
     private float _jumpTime = 0.0f;
 
@@ -58,8 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
         _layerMask = ~(LayerMask.GetMask("Player") | LayerMask.GetMask("CameraBounds")) ;
     }
-
-    private void FixedUpdate()
+    private void Update()
     {
         inputX = Input.GetAxisRaw("Horizontal");
         inputY = Input.GetAxisRaw("Vertical");
@@ -67,6 +64,9 @@ public class PlayerMovement : MonoBehaviour
         inputJump = Input.GetAxisRaw("Jump") == 1 ? true : false;
         inputAttack = Input.GetAxisRaw("Fire1") == 1 ? true : false;
 
+    }
+    private void FixedUpdate()
+    {
         //Groundcheck raycast
         RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, _layerMask);
         Debug.DrawRay(transform.position, Vector2.down * groundCheckDistance, Color.red);
@@ -156,12 +156,11 @@ public class PlayerMovement : MonoBehaviour
     }
     IEnumerator Jump()
     {
-        rigidbody.AddForce(Vector2.up * intialJumpPower, ForceMode2D.Impulse);
         do
         {
-            rigidbody.AddForce(Vector2.up * sustainedJumpPower);
-            _jumpTime += Time.fixedDeltaTime;
             print("Jumptime: " + _jumpTime);
+            rigidbody.AddForce(Vector2.up * initialJumpPower);
+            _jumpTime += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         } while ((inputJump && _jumpTime < jumpTimeMax)|| _jumpTime < jumpTimeMin) ;
 
