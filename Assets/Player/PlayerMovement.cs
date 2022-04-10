@@ -4,39 +4,48 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    
+    //Editor fields
     [SerializeField]
     private float speedModif = 10f;
     [SerializeField]
     private float fallModif = 2f;
     [SerializeField]
-    private float jumpHeight = 10f;
+    private float jumpPower = 2f;
+    [SerializeField]
+    private float jumpTimeMax = 0.75f;
+    [SerializeField]
+    private float jumpTimeMin = 0.75f;
     [SerializeField]
     private float groundCheckDistance;
     [SerializeField]
     private float decelerationTime = 1f;
 
+    //Components
     new Transform transform;
     new Rigidbody2D rigidbody;
     new Collider2D collider;
     Animator animator;
 
-    private int _layerMask;
-    private bool _isGrounded;
-    public bool IsGrounded { get { return _isGrounded; } }
-
+    //Analog inputs
     float inputX;
     float inputY;
 
+    //Digital Inputs
     bool inputJump;
     bool inputAttack;
 
+    //Player States
     bool attacking;
     bool jumping;
     bool facingRight = true;
 
-    float slowDownTimer;
-    
+    //Internal Variables
+    private int _layerMask;
+    private bool _isGrounded;
+    public bool IsGrounded { get { return _isGrounded; } }
+
+    private float _slowDownTimer = 0.0f;
+    private float _jumpTime = 0.0f;
 
     void Awake()
     {
@@ -67,8 +76,13 @@ public class PlayerMovement : MonoBehaviour
         if (inputJump && _isGrounded && !jumping)
         {
             jumping = true;
+            _jumpTime = 0.0f;
+            StartCoroutine(Jump());
+        } else if (jumping){
+            _jumpTime += Time.fixedDeltaTime;
             StartCoroutine(Jump());
         }
+        Debug.Log(_jumpTime);
 
         //Grounded anti-slip
         if (_isGrounded && 
@@ -79,8 +93,8 @@ public class PlayerMovement : MonoBehaviour
             )
         {
             Vector2 target = new Vector2(0f, rigidbody.velocity.y);
-            rigidbody.velocity = Vector2.Lerp(rigidbody.velocity, target, slowDownTimer / decelerationTime);
-            slowDownTimer += Time.fixedDeltaTime;
+            rigidbody.velocity = Vector2.Lerp(rigidbody.velocity, target, _slowDownTimer / decelerationTime);
+            _slowDownTimer += Time.fixedDeltaTime;
 
             //"Close Enough" slowdown fudging
             if (Mathf.Abs(rigidbody.velocity.x) < 0.001f)
@@ -90,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            slowDownTimer = 0f;
+            _slowDownTimer = 0f;
         }
 
         //Apply movement
@@ -144,8 +158,14 @@ public class PlayerMovement : MonoBehaviour
     }
     IEnumerator Jump()
     {
-        rigidbody.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(0.75f);
+        do
+        {
+            float jumpForce = Mathf.Lerp( 0, jumpPower, jumpTimeMax - _jumpTime);
+            print(jumpForce);
+            rigidbody.AddForce(Vector2.up * jumpForce);
+            yield return null;
+        } while ((inputJump && _jumpTime < jumpTimeMax)|| _jumpTime < jumpTimeMin) ;
+
         jumping = false;
     }
 }
