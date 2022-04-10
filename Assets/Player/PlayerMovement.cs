@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private const float NORMAL_GRAVITY = 1f;
+
     //Editor fields
     [SerializeField]
     private float speedModif = 10f;
@@ -12,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float initialJumpPower = 2f;
     [SerializeField]
-    private float sustainedJumpPower = 2f;
+    private float dashPower = 2f;
     [SerializeField]
     private float jumpTimeMax = 0.75f;
     [SerializeField]
@@ -35,10 +37,12 @@ public class PlayerMovement : MonoBehaviour
     //Digital Inputs
     bool inputJump;
     bool inputAttack;
+    bool inputDash;
 
     //Player States
     bool attacking;
     bool jumping;
+    bool dashing;
     bool facingRight = true;
 
     //Internal Variables
@@ -63,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
         inputJump = Input.GetAxisRaw("Jump") == 1 ? true : false;
         inputAttack = Input.GetAxisRaw("Fire1") == 1 ? true : false;
+        inputDash = Input.GetAxisRaw("Fire2") == 1 ? true : false;
 
     }
     private void FixedUpdate()
@@ -74,6 +79,22 @@ public class PlayerMovement : MonoBehaviour
         _isGrounded = raycastHit;
 
 
+        //Dashing
+        if (inputDash && !dashing)
+        {
+            print("Dashing");
+            dashing = true;
+
+            rigidbody.gravityScale = 0.0f;
+            rigidbody.AddForce(transform.right * dashPower, ForceMode2D.Impulse);
+            animator.SetBool("IsDashing?", true);
+            StartCoroutine(Dash());
+        }
+        else
+        {
+            animator.SetBool("IsDashing?", false);
+        }
+
         //Jumping
         if (inputJump && _isGrounded && !jumping)
         {
@@ -81,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
             _jumpTime = 0.0f;
             StartCoroutine(Jump());
         }
+
 
         //Grounded anti-slip
         if (_isGrounded && 
@@ -106,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Apply movement
-        if ( Mathf.Abs(rigidbody.velocity.x) <= speedModif)
+        if (!dashing && Mathf.Abs(rigidbody.velocity.x) <= speedModif)
         {
             rigidbody.velocity += new Vector2(inputX * speedModif, 0) * Time.deltaTime;
         }
@@ -133,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            rigidbody.gravityScale = 1f;
+            rigidbody.gravityScale = NORMAL_GRAVITY;
         }
 
         //Attacking
@@ -158,7 +180,6 @@ public class PlayerMovement : MonoBehaviour
     {
         do
         {
-            print("Jumptime: " + _jumpTime);
             rigidbody.AddForce(Vector2.up * initialJumpPower);
             _jumpTime += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
@@ -166,5 +187,11 @@ public class PlayerMovement : MonoBehaviour
 
         yield return new WaitForSeconds(0.75f);
         jumping = false;
+    }
+    IEnumerator Dash()
+    {
+        yield return new WaitForSeconds(1.0f);
+        rigidbody.gravityScale = NORMAL_GRAVITY;
+        dashing = false;
     }
 }
