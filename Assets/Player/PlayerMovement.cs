@@ -10,7 +10,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float fallModif = 2f;
     [SerializeField]
-    private float jumpPower = 2f;
+    private float intialJumpPower = 2f;
+    [SerializeField]
+    private float sustainedJumpPower = 2f;
     [SerializeField]
     private float jumpTimeMax = 0.75f;
     [SerializeField]
@@ -78,11 +80,7 @@ public class PlayerMovement : MonoBehaviour
             jumping = true;
             _jumpTime = 0.0f;
             StartCoroutine(Jump());
-        } else if (jumping){
-            _jumpTime += Time.fixedDeltaTime;
-            StartCoroutine(Jump());
         }
-        Debug.Log(_jumpTime);
 
         //Grounded anti-slip
         if (_isGrounded && 
@@ -158,14 +156,16 @@ public class PlayerMovement : MonoBehaviour
     }
     IEnumerator Jump()
     {
+        rigidbody.AddForce(Vector2.up * intialJumpPower, ForceMode2D.Impulse);
         do
         {
-            float jumpForce = Mathf.Lerp( 0, jumpPower, jumpTimeMax - _jumpTime);
-            print(jumpForce);
-            rigidbody.AddForce(Vector2.up * jumpForce);
-            yield return null;
+            rigidbody.AddForce(Vector2.up * sustainedJumpPower);
+            _jumpTime += Time.fixedDeltaTime;
+            print("Jumptime: " + _jumpTime);
+            yield return new WaitForFixedUpdate();
         } while ((inputJump && _jumpTime < jumpTimeMax)|| _jumpTime < jumpTimeMin) ;
 
+        yield return new WaitForSeconds(0.75f);
         jumping = false;
     }
 }
