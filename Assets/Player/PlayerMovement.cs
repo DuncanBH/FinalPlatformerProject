@@ -96,12 +96,29 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Jumping
-        if (inputJump && _isGrounded && !jumping)
+        if (inputJump && !jumping)
         {
             jumping = true;
+            rigidbody.AddForce(Vector2.up * initialJumpPower, ForceMode2D.Impulse);
             _jumpTime = 0.0f;
-           
-            StartCoroutine(Jump());
+            print("launch");
+        }
+        else if (jumping) {
+            if (inputJump && _jumpTime < jumpTimeMin)
+            {
+                rigidbody.gravityScale = NORMAL_GRAVITY;
+                print("uppity");
+            }
+            else
+            {
+                rigidbody.gravityScale = fallModif;
+                print("downity");
+            }
+            
+            if (_jumpTime > jumpTimeMax ) { 
+                jumping = false; 
+            }
+            _jumpTime += Time.fixedDeltaTime;
         }
 
 
@@ -148,15 +165,18 @@ public class PlayerMovement : MonoBehaviour
             facingRight = false;
             transform.rotation = Quaternion.Euler(0 ,180, 0);
         }
-        
+
         //Falling
-        if (rigidbody.velocity.y < 0)
+        if (!jumping)
         {
-            rigidbody.gravityScale = fallModif;
-        }
-        else
-        {
-            rigidbody.gravityScale = NORMAL_GRAVITY;
+            if (rigidbody.velocity.y < 0)
+            {
+                rigidbody.gravityScale = fallModif;
+            }
+            else
+            {
+                rigidbody.gravityScale = NORMAL_GRAVITY;
+            }
         }
 
         //Attacking
@@ -191,13 +211,25 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(0.75f);
         jumping = false;
     }/**/
+
     IEnumerator Jump()
-    {
-        rigidbody.AddForce(Vector2.up * initialJumpPower, ForceMode2D.Impulse);
+    {    
         do
         {
-            
-        }
+            if (inputJump && _jumpTime < jumpTimeMin)
+            {
+                rigidbody.gravityScale = NORMAL_GRAVITY;
+                //print("uppity");
+            }
+            else
+            {
+                rigidbody.gravityScale = fallModif * 2;
+                //print("downity");
+            }
+            _jumpTime += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        } while (_jumpTime < jumpTimeMax);
+
         yield return new WaitForSeconds(0.75f);
         jumping = false;
     }
