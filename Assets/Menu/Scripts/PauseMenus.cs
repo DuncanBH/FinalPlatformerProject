@@ -15,6 +15,9 @@ public class PauseMenus : MonoBehaviour
     [SerializeField]
     GameObject pause;
 
+    [SerializeField]
+    GameObject gameOver;
+
     bool gameIsPaused;
 
     // Start is called before the first frame update
@@ -77,5 +80,11 @@ public class PauseMenus : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void GameOver()
+    {
+        gameOver.GetComponent<Canvas>().enabled = true;
+        Time.timeScale = 0f;
     }
 }

@@ -9,11 +9,20 @@ public class PlayerManager : MonoBehaviour, IDamagable
 
     Animator animator;
 
+    [SerializeField]
+    GameObject menuSystem;
+
+    PauseMenus menuSystemScript;
+    PlayerMovement playerMovement;
+    new Rigidbody2D rigidbody;
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        //takeDamage(1);
+        menuSystemScript = menuSystem.GetComponent<PauseMenus>();
+        playerMovement = GetComponent<PlayerMovement>();
+        rigidbody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -28,9 +37,19 @@ public class PlayerManager : MonoBehaviour, IDamagable
 
         if (Health < 0)
         {
-            //Play Death animation
-            animator.SetBool("IsDead?", true);
-            Destroy(this.gameObject,2);
+            StartCoroutine(gameOverSequence());
+            
+            
         }
+    }
+
+    public IEnumerator gameOverSequence()
+    {
+        animator.SetBool("IsDead?", true);
+        playerMovement.enabled = false;
+        rigidbody.Sleep();
+        yield return new WaitForSeconds(2.0f);
+        menuSystemScript.GameOver();
+        Destroy(this.gameObject);
     }
 }
