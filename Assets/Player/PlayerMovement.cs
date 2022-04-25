@@ -100,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
         {
             jumping = true;
             _jumpTime = 0.0f;
+           
             StartCoroutine(Jump());
         }
 
@@ -176,8 +177,10 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         attacking = false;
     }
+    /*
     IEnumerator Jump()
     {
+        //crunchy jump
         do
         {
             rigidbody.AddForce(Vector2.up * initialJumpPower);
@@ -185,6 +188,16 @@ public class PlayerMovement : MonoBehaviour
             yield return new WaitForFixedUpdate();
         } while ((inputJump && _jumpTime < jumpTimeMax)|| _jumpTime < jumpTimeMin) ;
 
+        yield return new WaitForSeconds(0.75f);
+        jumping = false;
+    }/**/
+    IEnumerator Jump()
+    {
+        rigidbody.AddForce(Vector2.up * initialJumpPower, ForceMode2D.Impulse);
+        do
+        {
+            
+        }
         yield return new WaitForSeconds(0.75f);
         jumping = false;
     }
