@@ -96,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Jumping
-        if (inputJump && !jumping)
+        if (inputJump && !jumping && _isGrounded)
         {
             jumping = true;
             rigidbody.AddForce(Vector2.up * initialJumpPower, ForceMode2D.Impulse);
@@ -196,42 +196,6 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(0.05f);
         attacking = false;
-    }
-    /*
-    IEnumerator Jump()
-    {
-        //crunchy jump
-        do
-        {
-            rigidbody.AddForce(Vector2.up * initialJumpPower);
-            _jumpTime += Time.fixedDeltaTime;
-            yield return new WaitForFixedUpdate();
-        } while ((inputJump && _jumpTime < jumpTimeMax)|| _jumpTime < jumpTimeMin) ;
-
-        yield return new WaitForSeconds(0.75f);
-        jumping = false;
-    }/**/
-
-    IEnumerator Jump()
-    {    
-        do
-        {
-            if (inputJump && _jumpTime < jumpTimeMin)
-            {
-                rigidbody.gravityScale = NORMAL_GRAVITY;
-                //print("uppity");
-            }
-            else
-            {
-                rigidbody.gravityScale = fallModif * 2;
-                //print("downity");
-            }
-            _jumpTime += Time.fixedDeltaTime;
-            yield return new WaitForFixedUpdate();
-        } while (_jumpTime < jumpTimeMax);
-
-        yield return new WaitForSeconds(0.75f);
-        jumping = false;
     }
     IEnumerator Dash()
     {

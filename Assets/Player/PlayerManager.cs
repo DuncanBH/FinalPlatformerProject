@@ -10,9 +10,8 @@ public class PlayerManager : MonoBehaviour, IDamagable
     Animator animator;
 
     [SerializeField]
-    GameObject menuSystem;
+    PauseMenus menuSystem;
 
-    PauseMenus menuSystemScript;
     PlayerMovement playerMovement;
     new Rigidbody2D rigidbody;
 
@@ -20,7 +19,6 @@ public class PlayerManager : MonoBehaviour, IDamagable
     void Start()
     {
         animator = GetComponent<Animator>();
-        menuSystemScript = menuSystem.GetComponent<PauseMenus>();
         playerMovement = GetComponent<PlayerMovement>();
         rigidbody = GetComponent<Rigidbody2D>();
     }
@@ -49,7 +47,7 @@ public class PlayerManager : MonoBehaviour, IDamagable
         playerMovement.enabled = false;
         rigidbody.Sleep();
         yield return new WaitForSeconds(2.0f);
-        menuSystemScript.GameOver();
+        menuSystem.GameOver();
         Destroy(this.gameObject);
     }
 }
