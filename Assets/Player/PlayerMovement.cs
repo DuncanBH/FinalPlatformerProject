@@ -115,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
                 print("downity");
             }
             
-            if (_jumpTime > jumpTimeMax ) { 
+            if (_isGrounded && _jumpTime > jumpTimeMin ) { 
                 jumping = false; 
             }
             _jumpTime += Time.fixedDeltaTime;

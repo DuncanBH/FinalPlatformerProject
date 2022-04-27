@@ -433,7 +433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedModif: 6
   fallModif: 3
-  initialJumpPower: 8
+  initialJumpPower: 10
   dashPower: 10
   jumpTimeMax: 1.1
   jumpTimeMin: 0.8
