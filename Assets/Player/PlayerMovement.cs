@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     bool inputDash;
 
     //Player States
-    bool attacking;
+    public bool attacking;
     bool jumping;
     bool dashing;
     bool facingRight = true;
@@ -77,23 +77,6 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(transform.position, Vector2.down * groundCheckDistance, Color.red);
 
         _isGrounded = raycastHit;
-
-
-        //Dashing
-        if (inputDash && !dashing)
-        {
-            print("Dashing");
-            dashing = true;
-
-            rigidbody.gravityScale = 0.0f;
-            rigidbody.AddForce(transform.right * dashPower, ForceMode2D.Impulse);
-            animator.SetBool("IsDashing?", true);
-            StartCoroutine(Dash());
-        }
-        else
-        {
-            animator.SetBool("IsDashing?", false);
-        }
 
         //Jumping
         if (inputJump && !jumping && _isGrounded)
@@ -184,23 +167,10 @@ public class PlayerMovement : MonoBehaviour
         {
             attacking = true;
             animator.SetBool("IsAttacking?", true);
-            StartCoroutine(Attack());
         }
         else
         {
             animator.SetBool("IsAttacking?", false);
         }
-    }
-
-    IEnumerator Attack()
-    {
-        yield return new WaitForSeconds(0.05f);
-        attacking = false;
-    }
-    IEnumerator Dash()
-    {
-        yield return new WaitForSeconds(1.0f);
-        rigidbody.gravityScale = NORMAL_GRAVITY;
-        dashing = false;
     }
 }
