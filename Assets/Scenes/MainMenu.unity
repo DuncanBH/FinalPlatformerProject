@@ -2458,9 +2458,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef32352179d46a842a59e3bbc19cb570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstLevel: FirstLevel
-  secondLevel: SecondLevel
-  thirdLevel: SecondLevel
+  firstLevel: LVL1
+  secondLevel: LVL2
+  thirdLevel: LVL3
   options: {fileID: 444301254}
   mainMenu: {fileID: 1667158735}
   levelSelect: {fileID: 1399568825}
