@@ -7,31 +7,21 @@ public class MainMenus : MonoBehaviour
 {
     [SerializeField]
     string firstLevel;
-
     [SerializeField]
     string secondLevel;
-
     [SerializeField]
     string thirdLevel;
 
     [SerializeField]
     GameObject options;
-
     [SerializeField]
     GameObject mainMenu;
-
     [SerializeField]
     GameObject levelSelect;
 
     public Animator transition;
     public float transtionTime = 1f;
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void StartGame()
     {
         StartCoroutine(LoadLevel(firstLevel));
@@ -44,6 +34,7 @@ public class MainMenus : MonoBehaviour
     {
         StartCoroutine(LoadLevel(thirdLevel));
     }
+
     public void ExitGame()
     {
         Application.Quit();

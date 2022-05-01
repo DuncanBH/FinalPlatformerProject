@@ -14,10 +14,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float initialJumpPower = 2f;
     [SerializeField]
-    private float dashPower = 2f;
-    [SerializeField]
-    private float jumpTimeMax = 0.75f;
-    [SerializeField]
     private float jumpTimeMin = 0.75f;
     [SerializeField]
     private float groundCheckDistance;
@@ -37,13 +33,10 @@ public class PlayerMovement : MonoBehaviour
     //Digital Inputs
     bool inputJump;
     bool inputAttack;
-    bool inputDash;
 
     //Player States
     public bool attacking;
-    public bool secondAttacking;
     bool jumping;
-    bool dashing;
     bool facingRight = true;
 
     //Internal Variables
@@ -68,7 +61,8 @@ public class PlayerMovement : MonoBehaviour
 
         inputJump = Input.GetAxisRaw("Jump") == 1 ? true : false;
         inputAttack = Input.GetAxisRaw("Fire1") == 1 ? true : false;
-        inputDash = Input.GetAxisRaw("Fire2") == 1 ? true : false;
+
+        animator.SetBool("IsJumping?", !_isGrounded);
 
     }
     private void FixedUpdate()
@@ -85,18 +79,18 @@ public class PlayerMovement : MonoBehaviour
             jumping = true;
             rigidbody.AddForce(Vector2.up * initialJumpPower, ForceMode2D.Impulse);
             _jumpTime = 0.0f;
-            print("launch");
+            //print("launch");
         }
         else if (jumping) {
             if (inputJump && _jumpTime < jumpTimeMin)
             {
                 rigidbody.gravityScale = NORMAL_GRAVITY;
-                print("uppity");
+                //print("uppity");
             }
             else
             {
                 rigidbody.gravityScale = fallModif;
-                print("downity");
+                //print("downity");
             }
             
             if (_isGrounded && _jumpTime > jumpTimeMin ) { 
@@ -130,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Apply movement
-        if (!dashing && Mathf.Abs(rigidbody.velocity.x) <= speedModif)
+        if (Mathf.Abs(rigidbody.velocity.x) <= speedModif)
         {
             rigidbody.velocity += new Vector2(inputX * speedModif, 0) * Time.deltaTime;
         }
@@ -163,21 +157,15 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        Debug.Log("Attacking:  " + attacking);
         //Attacking
         if (inputAttack && !attacking)
         {
             attacking = true;
             animator.SetBool("IsAttacking?", true);
         }
-        else if (inputAttack && attacking && secondAttacking) {
-            secondAttacking = true;
-            animator.SetBool("queueFollowUpAttack?", true);
-        }
         else 
         {
             animator.SetBool("IsAttacking?", false);
-            animator.SetBool("queueFollowUpAttack?", false);
         }
     }
 }

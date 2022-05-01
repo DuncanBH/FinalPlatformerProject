@@ -12,7 +12,7 @@ public class HitBoxAttack : MonoBehaviour
 
         if (hit != null)
         {
-            hit.takeDamage(1);
+            hit.takeDamage(attackDamage);
         }
     }
 }

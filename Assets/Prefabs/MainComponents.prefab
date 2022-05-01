@@ -82,11 +82,11 @@ GameObject:
   - component: {fileID: 2333537757520425481}
   - component: {fileID: 3096359994670170099}
   - component: {fileID: 4069944665350411040}
+  - component: {fileID: 3708638789523514559}
   - component: {fileID: 8717942483123603124}
   - component: {fileID: 5480768366368702328}
   - component: {fileID: 8011688330349440097}
   - component: {fileID: 427827471856888939}
-  - component: {fileID: 3708638789523514559}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -182,6 +182,19 @@ MonoBehaviour:
   decelerationTime: 0.3
   attacking: 0
   secondAttacking: 0
+--- !u!114 &3708638789523514559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4544401307100736429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 078dc59c79121114f90a2e7e9eab6606, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuSystem: {fileID: 1881161081863993646}
 --- !u!95 &8717942483123603124
 Animator:
   serializedVersion: 3
@@ -264,19 +277,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.9375, y: 1.75}
   m_Direction: 0
---- !u!114 &3708638789523514559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4544401307100736429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 078dc59c79121114f90a2e7e9eab6606, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  menuSystem: {fileID: 1881161081863993646}
 --- !u!1 &5064532810748900835
 GameObject:
   m_ObjectHideFlags: 0
@@ -6376,7 +6376,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5064532811263710498}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.6817007, y: -0.46906522, z: 5.0135098}
+  m_LocalPosition: {x: -5.4457173, y: -0.9924276, z: -2.4932451}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1800584678947572429}
@@ -6409,7 +6409,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -6522,7 +6522,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 5
+    OrthographicSize: 6
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0

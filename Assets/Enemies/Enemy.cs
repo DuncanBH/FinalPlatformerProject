@@ -27,10 +27,6 @@ public class Enemy : MonoBehaviour, IDamagable
         animator = GetComponent<Animator>();
     }
 
-    void Update()
-    {
-        
-    }
     /// <summary>
     /// Removes the entity. Called from animation event on EntityDie
     /// </summary>
