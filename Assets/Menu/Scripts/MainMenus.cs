@@ -9,6 +9,12 @@ public class MainMenus : MonoBehaviour
     string firstLevel;
 
     [SerializeField]
+    string secondLevel;
+
+    [SerializeField]
+    string thirdLevel;
+
+    [SerializeField]
     GameObject options;
 
     [SerializeField]
@@ -16,11 +22,10 @@ public class MainMenus : MonoBehaviour
 
     [SerializeField]
     GameObject levelSelect;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
+    public Animator transition;
+    public float transtionTime = 1f;
+
 
     // Update is called once per frame
     void Update()
@@ -29,7 +34,15 @@ public class MainMenus : MonoBehaviour
     }
     public void StartGame()
     {
-        SceneManager.LoadScene(firstLevel);
+        StartCoroutine(LoadLevel(firstLevel));
+    }
+    public void StartLevel2()
+    {
+        StartCoroutine(LoadLevel(secondLevel));
+    }
+    public void StartLevel3()
+    {
+        StartCoroutine(LoadLevel(thirdLevel));
     }
     public void ExitGame()
     {
@@ -52,5 +65,14 @@ public class MainMenus : MonoBehaviour
         levelSelect.GetComponent<Canvas>().enabled = false;
         options.GetComponent<Canvas>().enabled = false;
         mainMenu.GetComponent<Canvas>().enabled = true;
+    }
+
+    IEnumerator LoadLevel(string level)
+    {
+        transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transtionTime);
+
+        SceneManager.LoadScene(level);
     }
 }

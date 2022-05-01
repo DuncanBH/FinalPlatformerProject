@@ -749,6 +749,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1387913063 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5914005141231406260, guid: 239194103d02e5040a293567d720a2ad, type: 3}
+  m_PrefabInstance: {fileID: 2120972480}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1613788956
 GameObject:
   m_ObjectHideFlags: 0
@@ -5709,6 +5714,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2224272720714593394, guid: 239194103d02e5040a293567d720a2ad, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1314238245}
+    - target: {fileID: 4671771910312229414, guid: 239194103d02e5040a293567d720a2ad, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6274605307862618384, guid: 239194103d02e5040a293567d720a2ad, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -5817,6 +5830,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1314238245}
+    - target: {fileID: 6274605309412019726, guid: 239194103d02e5040a293567d720a2ad, type: 3}
+      propertyPath: transition
+      value: 
+      objectReference: {fileID: 1387913063}
     - target: {fileID: 6274605309581112980, guid: 239194103d02e5040a293567d720a2ad, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -5825,6 +5842,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6581372873921134110, guid: 239194103d02e5040a293567d720a2ad, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1314238245}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 239194103d02e5040a293567d720a2ad, type: 3}
 --- !u!114 &2120972481 stripped

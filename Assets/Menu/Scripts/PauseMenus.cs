@@ -20,6 +20,9 @@ public class PauseMenus : MonoBehaviour
 
     bool gameIsPaused;
 
+    public Animator transition;
+    public float transtionTime = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,7 +65,8 @@ public class PauseMenus : MonoBehaviour
     }
     public void MainMenu()
     {
-        SceneManager.LoadScene(mainMenu);
+        StartCoroutine(LoadLevel(mainMenu));
+        Time.timeScale = 1f;
     }
 
     public void Options()
@@ -79,12 +83,21 @@ public class PauseMenus : MonoBehaviour
     }
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().name));
+        Time.timeScale = 1f;
     }
 
     public void GameOver()
     {
         gameOver.GetComponent<Canvas>().enabled = true;
         Time.timeScale = 0f;
+    }
+    IEnumerator LoadLevel(string level)
+    {
+        transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transtionTime);
+
+        SceneManager.LoadScene(level);
     }
 }
