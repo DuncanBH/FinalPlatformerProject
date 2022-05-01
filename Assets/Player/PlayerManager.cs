@@ -33,7 +33,7 @@ public class PlayerManager : MonoBehaviour, IDamagable
     {
         animator.SetBool("IsDead?", true);
         playerMovement.enabled = false;
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.5f);
         menuSystem.GameOver();
         Destroy(this.gameObject);
     }
