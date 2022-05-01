@@ -24,7 +24,8 @@ public class Parallax : MonoBehaviour
     void Update()
     {
         //Guard clause checking parent's IsStarted state
-        if (!controller.isStarted) {
+        if (!controller.isStarted)
+        {
             return; 
         }
 
