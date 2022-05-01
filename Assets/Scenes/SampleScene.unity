@@ -297,12 +297,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f516aa22000933544917acba5fb2e304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
   timeBetweenShots: 0
   speed: 0
-  startingX: 0
-  endingX: 0
+  leftX: 0
+  rightX: 0
   patrolling: 1
+  viewDistance: 0
+  bullet: {fileID: 0}
 --- !u!61 &359685291
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -445,12 +446,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f516aa22000933544917acba5fb2e304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
   timeBetweenShots: 0
   speed: 0
-  startingX: 0
-  endingX: 0
+  leftX: 0
+  rightX: 0
   patrolling: 1
+  viewDistance: 0
+  bullet: {fileID: 0}
 --- !u!61 &551559381
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -593,12 +595,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f516aa22000933544917acba5fb2e304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
   timeBetweenShots: 0
   speed: 0
-  startingX: 0
-  endingX: 0
+  leftX: 0
+  rightX: 0
   patrolling: 1
+  viewDistance: 0
+  bullet: {fileID: 0}
 --- !u!61 &664105598
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -741,12 +744,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f516aa22000933544917acba5fb2e304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
   timeBetweenShots: 0
   speed: 0
-  startingX: 0
-  endingX: 0
+  leftX: 0
+  rightX: 0
   patrolling: 1
+  viewDistance: 0
+  bullet: {fileID: 0}
 --- !u!61 &947051186
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -838,11 +842,6 @@ Transform:
   m_Father: {fileID: 1299384652}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1105761420 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2241136847737387924, guid: 52518691b9425ef4f9a5377a3cd5fbee, type: 3}
-  m_PrefabInstance: {fileID: 5064532811761495390}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1209303235
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,12 +893,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f516aa22000933544917acba5fb2e304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
   timeBetweenShots: 0
   speed: 0
-  startingX: 0
-  endingX: 0
+  leftX: 0
+  rightX: 0
   patrolling: 1
+  viewDistance: 0
+  bullet: {fileID: 0}
 --- !u!61 &1209303238
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1042,12 +1042,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f516aa22000933544917acba5fb2e304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
   timeBetweenShots: 0
   speed: 0
-  startingX: 0
-  endingX: 0
+  leftX: 0
+  rightX: 0
   patrolling: 1
+  viewDistance: 0
+  bullet: {fileID: 0}
 --- !u!61 &1285474913
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1190,12 +1191,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f516aa22000933544917acba5fb2e304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
   timeBetweenShots: 0
   speed: 0
-  startingX: 0
-  endingX: 0
+  leftX: 0
+  rightX: 0
   patrolling: 1
+  viewDistance: 0
+  bullet: {fileID: 0}
 --- !u!61 &1287848246
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1378,12 +1380,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f516aa22000933544917acba5fb2e304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
   timeBetweenShots: 0
   speed: 0
-  startingX: 0
-  endingX: 0
+  leftX: 0
+  rightX: 0
   patrolling: 1
+  viewDistance: 0
+  bullet: {fileID: 0}
 --- !u!61 &1340139501
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1526,12 +1529,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8441542bc35132b4faa12e9a8b68caf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
   timeBetweenShots: 0
   speed: 0
-  startingX: 0
-  endingX: 0
+  leftX: 0
+  rightX: 0
   patrolling: 1
+  viewDistance: 0
+  bullet: {fileID: 0}
 --- !u!61 &1424655809
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1674,12 +1678,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f516aa22000933544917acba5fb2e304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
   timeBetweenShots: 0
   speed: 0
-  startingX: 0
-  endingX: 0
+  leftX: 0
+  rightX: 0
   patrolling: 1
+  viewDistance: 0
+  bullet: {fileID: 0}
 --- !u!61 &1461662196
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1822,12 +1827,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f516aa22000933544917acba5fb2e304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
   timeBetweenShots: 0
   speed: 0
-  startingX: 0
-  endingX: 0
+  leftX: 0
+  rightX: 0
   patrolling: 1
+  viewDistance: 0
+  bullet: {fileID: 0}
 --- !u!61 &2138897097
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1970,10 +1976,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1881161081863993646, guid: 52518691b9425ef4f9a5377a3cd5fbee, type: 3}
-      propertyPath: transition
-      value: 
-      objectReference: {fileID: 1105761420}
     - target: {fileID: 1881161082200195295, guid: 52518691b9425ef4f9a5377a3cd5fbee, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2036,11 +2038,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5064532811263710686, guid: 52518691b9425ef4f9a5377a3cd5fbee, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.4457192
+      value: -5.445718
       objectReference: {fileID: 0}
     - target: {fileID: 5064532811263710686, guid: 52518691b9425ef4f9a5377a3cd5fbee, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.9924226
+      value: -0.9924271
       objectReference: {fileID: 0}
     - target: {fileID: 5064532811582133015, guid: 52518691b9425ef4f9a5377a3cd5fbee, type: 3}
       propertyPath: menuSystem
