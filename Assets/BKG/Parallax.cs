@@ -9,6 +9,8 @@ public class Parallax : MonoBehaviour
     [SerializeField]
     new private Transform camera;
 
+    private ParallaxController controller;
+
     private float length, startpos;
     
     void Start()
@@ -16,10 +18,16 @@ public class Parallax : MonoBehaviour
         startpos = transform.position.x;
         length = GetComponent<SpriteRenderer>().bounds.size.x;
         parallaxEffect = 1 - (this.transform.position.z / 10);
+        controller = GetComponentInParent<ParallaxController>();
     }
 
     void Update()
     {
+        //Guard clause checking parent's IsStarted state
+        if (!controller.isStarted) {
+            return; 
+        }
+
         float temp = camera.position.x * (1 - parallaxEffect);
         float dist = (camera.position.x * parallaxEffect);
 
