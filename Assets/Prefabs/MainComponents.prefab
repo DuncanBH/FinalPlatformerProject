@@ -6373,7 +6373,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5064532811263710498}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.4457173, y: -0.9924276, z: -2.4932451}
+  m_LocalPosition: {x: -5.445721, y: -0.9924607, z: -2.4932451}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1800584678947572429}
@@ -6888,6 +6888,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6274605309412019726, guid: 239194103d02e5040a293567d720a2ad, type: 3}
+      propertyPath: transition
+      value: 
+      objectReference: {fileID: 2241136847737387924}
     - target: {fileID: 6274605309581112980, guid: 239194103d02e5040a293567d720a2ad, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -6914,3 +6918,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: badcf01b910d00d4c95dca5c6d69013a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &2241136847737387924 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5914005141231406260, guid: 239194103d02e5040a293567d720a2ad, type: 3}
+  m_PrefabInstance: {fileID: 5550926514993919776}
+  m_PrefabAsset: {fileID: 0}
