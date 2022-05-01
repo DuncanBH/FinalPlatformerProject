@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
     //Player States
     public bool attacking;
+    public bool secondAttacking;
     bool jumping;
     bool dashing;
     bool facingRight = true;
@@ -162,15 +163,21 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        Debug.Log("Attacking:  " + attacking);
         //Attacking
         if (inputAttack && !attacking)
         {
             attacking = true;
             animator.SetBool("IsAttacking?", true);
         }
-        else
+        else if (inputAttack && attacking && secondAttacking) {
+            secondAttacking = true;
+            animator.SetBool("queueFollowUpAttack?", true);
+        }
+        else 
         {
             animator.SetBool("IsAttacking?", false);
+            animator.SetBool("queueFollowUpAttack?", false);
         }
     }
 }
