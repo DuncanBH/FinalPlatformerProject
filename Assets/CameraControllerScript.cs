@@ -38,12 +38,10 @@ public class CameraControllerScript : MonoBehaviour
         foreach (CamBounds cambound in camBounds)
         {
             //Get collider and player pos
-            Collider2D collider = cambound.Collider;
+            Bounds bounds = cambound.ColliderBounds;
 
-            float playerPosX = Player.position.x;
-            
             //Check if player is in bounds -> set cam priority to high
-            if (playerPosX >= collider.bounds.min.x && playerPosX <= collider.bounds.max.x)
+            if (bounds.Contains(Player.position))
             {
                 cambound.Camera.Priority = 10;
             }
@@ -74,22 +72,12 @@ public class CameraControllerScript : MonoBehaviour
                 camera = value;
             }
         }
-        public Collider2D Collider
+        public Bounds ColliderBounds
         {
             get
             {
-                return collider;
+                return collider.bounds;
             }
-            set
-            {
-                collider = value;
-            }
-        }
-
-        public CamBounds(CinemachineVirtualCamera camera, Collider2D collider)
-        {
-            this.camera = camera;
-            this.collider = collider;
         }
     }
 }
