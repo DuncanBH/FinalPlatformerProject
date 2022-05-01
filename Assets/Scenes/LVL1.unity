@@ -1305,6 +1305,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1881161081863993646, guid: 52518691b9425ef4f9a5377a3cd5fbee, type: 3}
+      propertyPath: transition
+      value: 
+      objectReference: {fileID: 2106350116}
     - target: {fileID: 1881161082200195295, guid: 52518691b9425ef4f9a5377a3cd5fbee, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -17087,3 +17091,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2106350116 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2241136847737387924, guid: 52518691b9425ef4f9a5377a3cd5fbee, type: 3}
+  m_PrefabInstance: {fileID: 1811163040}
+  m_PrefabAsset: {fileID: 0}
