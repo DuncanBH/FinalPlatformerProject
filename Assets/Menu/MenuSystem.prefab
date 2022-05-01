@@ -4597,6 +4597,8 @@ MonoBehaviour:
   options: {fileID: 6274605308659170875}
   pause: {fileID: 6274605309285220046}
   gameOver: {fileID: 8655746548535017125}
+  transition: {fileID: 5914005141231406260}
+  transtionTime: 1
 --- !u!1 &6274605309429003174
 GameObject:
   m_ObjectHideFlags: 0

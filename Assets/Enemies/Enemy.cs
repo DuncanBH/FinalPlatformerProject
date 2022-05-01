@@ -6,82 +6,133 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class Enemy : MonoBehaviour, IDamagable
 {
+    //Control Varibales
     [SerializeField]
     public int Health { get; private set; }
-    public float timeBetweenShots;
-    public float speed;
-    public float leftX;
-    public float rightX;
-
-
-
-    public bool patrolling = true;
-    public float viewDistance;
 
     [SerializeField]
+    private bool DoPatrol = false;
+    [SerializeField]
+    private float timeBetweenShots;
+    [SerializeField]
+    private float speed;
+    [SerializeField]
+    private float leftX = 5;
+    [SerializeField]
+    private float rightX = 5;
+    [SerializeField]
+    private float viewDistance = 10;
+    [SeralizeField]
+    private float decelerationTime = 1f;
+    [SerializeField]
+    private bool isFacingRight = true;
+
+    //Object References
+    [SerializeField]
     GameObject bullet;
+
+    //Components
     Animator animator;
     Rigidbody2D rb2d;
-    
+    new Transform transform;
 
+    //Internal variables
+    bool _found = false;
+    int _layerMask;
+    int _playerLayer;
+    private float _shootTimer = 0.0f;
+    private float _slowDownTimer;
+    private float leftTarget;
+    private float rightTarget;
 
-    
-
-    //internal variables
-    int direction = 1;
-    Vector2 enemyVelocity;
-    bool found = false;
-
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
     public void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        enemyVelocity = Vector2.zero;
-        
+        transform = GetComponent<Transform>();
+
+        _layerMask = LayerMask.GetMask("Player");//| LayerMask.GetMask("Ground");
+        _playerLayer = LayerMask.NameToLayer("Player");
+
+        leftTarget = transform.position.x - leftX;
+        rightTarget = transform.position.x + rightX;
     }
+
     private void Update()
     {
-        //stop patroling and shoot if player found
-        if (!found)
+        //Search until player is found, then shoot
+        Vector3 directionVector = new Vector3(isFacingRight ? 1 : -1, 0, 0);
+
+        //RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, directionVector, viewDistance, _layerMask);
+        RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, directionVector, viewDistance, _layerMask);
+        Debug.DrawRay(transform.position, directionVector * viewDistance, Color.blue);
+
+        /*
+        //try this: _found = false
+        foreach (RaycastHit2D raycast in hits)
         {
-            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position + new Vector3(direction, 0, 0), new Vector3(direction * viewDistance, 0, 0));
-            GameObject[] blocks = GameObject.FindGameObjectsWithTag("Ground");
-            Debug.DrawRay(transform.position + new Vector3(direction, 0, 0), new Vector3(direction * viewDistance, 0, 0), Color.blue);
-            for (int i = 0; i < hits.Length; i++)
+            if (raycast.collider.gameObject.layer == _playerLayer)
             {
-                if (hits[i].collider.gameObject.tag == "Ground")
+                _found = true;
+
+                if (_shootTimer > timeBetweenShots)
                 {
-                    break;
-                }
-                if (hits[i].collider.gameObject.tag == "Player")
-                {
-                    patrolling = false;
-                    found = true;
-                    StartCoroutine(ShootBullet());
+                    Bullet bullet = Instantiate(this.bullet, transform.position, transform.rotation).GetComponent<Bullet>();
+                    bullet.direction = Vector2.right;
+                    _shootTimer = 0.0f;
                 }
 
             }
-        }
-    }
-    private void FixedUpdate()
-    {
-        if (patrolling)
+            else
+            {
+                _found = false;
+                break;
+            }
+        }/**/
+        if (raycastHit)
         {
-            if(transform.position.x <= leftX)
+            if (raycastHit.collider.gameObject.layer == _playerLayer)
             {
-                direction = 1;
+                _found = true;
             }
-            if(transform.position.x >= rightX)
+            if (_shootTimer > timeBetweenShots)
             {
-                direction = -1;
+                Bullet bullet = Instantiate(this.bullet, transform.position, transform.rotation).GetComponent<Bullet>();
+                bullet.direction = Vector2.right;
+                _shootTimer = 0.0f;
             }
-            enemyVelocity.x = speed*direction;
-
         }
         else
         {
-            enemyVelocity = Vector2.zero;
+            _found = false;
         }
-        rb2d.velocity = enemyVelocity;
+        _shootTimer += Time.deltaTime;
+    }
+
+    private void FixedUpdate()
+    {
+        print("left: " + leftTarget + " right " + rightTarget);
+        if (!_found & DoPatrol)
+        {
+            if (isFacingRight && transform.position.x > rightTarget)
+            {
+                isFacingRight = false;
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+            else if (!isFacingRight && transform.position.x < leftTarget)
+            {
+                isFacingRight = true;
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            rb2d.velocity = new Vector2(isFacingRight ? 1 : -1 * speed, Physics2D.gravity.y);
+        }
+        else
+        {
+            rb2d.velocity = Vector2.zero;
+        }
     }
 
     public void takeDamage(int damage)
@@ -96,11 +147,6 @@ public class Enemy : MonoBehaviour, IDamagable
         }
     }
 
-    void Awake()
-    {
-        animator = GetComponent<Animator>();
-    }
-
     /// <summary>
     /// Removes the entity. Called from animation event on EntityDie
     /// </summary>
@@ -111,10 +157,9 @@ public class Enemy : MonoBehaviour, IDamagable
 
     IEnumerator ShootBullet()
     {
-        Bullet tempBulletScript = Instantiate(bullet, transform.position,transform.rotation).GetComponent<Bullet>();
-        tempBulletScript.direction = Vector2.left;
+        Bullet bullet = Instantiate(this.bullet, transform.position, transform.rotation).GetComponent<Bullet>();
+        bullet.direction = Vector2.left;
         yield return new WaitForSeconds(timeBetweenShots);
-        StartCoroutine(ShootBullet());
     }
 
 }
