@@ -96,13 +96,13 @@ public class Mobster : Enemy
                     bullet.direction = Vector2.right;
                     _shootTimer = 0.0f;
                 }
+                _shootTimer += Time.deltaTime;
             }
         }
         else
         {
             _found = false;
         }
-        _shootTimer += Time.deltaTime;
     }
 
     private void FixedUpdate()
