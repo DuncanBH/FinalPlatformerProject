@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour, IDamagable
     /// <summary>
     /// Removes the entity. Called from animation event on EntityDie
     /// </summary>
-    private void EntityDie()
+    protected virtual void EntityDie()
     {
         Destroy(this.gameObject);
     }
