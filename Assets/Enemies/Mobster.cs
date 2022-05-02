@@ -73,10 +73,13 @@ public class Mobster : Enemy
 
                 if (_shootTimer > timeBetweenShots)
                 {
-                    Bullet bullet = Instantiate(this.bullet, transform.position, transform.rotation).GetComponent<Bullet>();
-                    bullet.direction = Vector2.right;
-                    _shootTimer = 0.0f;
-                    audioSource.PlayOneShot(gunShotSound);    
+                    if (!this.animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.EnemyDie"))
+                    {
+                        Bullet bullet = Instantiate(this.bullet, transform.position, transform.rotation).GetComponent<Bullet>();
+                        bullet.direction = Vector2.right;
+                        _shootTimer = 0.0f;
+                        audioSource.PlayOneShot(gunShotSound);
+                    } 
                 }
                 _shootTimer += Time.deltaTime;
             }

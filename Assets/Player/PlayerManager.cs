@@ -39,10 +39,10 @@ public class PlayerManager : MonoBehaviour, IDamagable
         animator.SetBool("IsDead?", true);
         playerMovement.enabled = false;
         rb2d.velocity = Vector2.zero;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.75f);
         rb2d.isKinematic = true;
         boxCollider.enabled = false;
-        menuSystem.GameOver();
+        menuSystem.Restart();
         
     }
 }
