@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DoPatrol: 0
-  timeBetweenShots: 1.5
+  timeBetweenShots: 0.75
   speed: 1
   leftX: 0
   rightX: 0

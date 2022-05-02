@@ -58,6 +58,11 @@ public class MainMenus : MonoBehaviour
         mainMenu.GetComponent<Canvas>().enabled = true;
     }
 
+    public void Start()
+    {
+        StartCoroutine(AppearMenu());
+    }
+
     IEnumerator LoadLevel(string level)
     {
         transition.SetTrigger("Start");
@@ -65,5 +70,11 @@ public class MainMenus : MonoBehaviour
         yield return new WaitForSeconds(transtionTime);
 
         SceneManager.LoadScene(level);
+    }
+
+    IEnumerator AppearMenu()
+    {
+        yield return new WaitForSeconds(20f);
+        mainMenu.SetActive(true);
     }
 }

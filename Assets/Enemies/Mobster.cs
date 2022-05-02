@@ -38,7 +38,7 @@ public class Mobster : Enemy
     private float leftTarget;
     private float rightTarget;
 
-   
+
     public void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -64,9 +64,8 @@ public class Mobster : Enemy
             if (raycastHit.collider.gameObject.layer == _playerLayer)
             {
                 animator.SetBool("IsShooting?", true);
-                Debug.Log("SEEN");
                 _found = true;
-                
+
                 if (_shootTimer > timeBetweenShots)
                 {
                     Bullet bullet = Instantiate(this.bullet, transform.position, transform.rotation).GetComponent<Bullet>();
@@ -75,10 +74,15 @@ public class Mobster : Enemy
                 }
                 _shootTimer += Time.deltaTime;
             }
+            else
+            {
+                _shootTimer = 0.0f;
+                _found = false;
+                animator.SetBool("IsShooting?", false);
+            }
         }
         else
         {
-            Debug.Log("UNSEEN");
             _found = false;
             animator.SetBool("IsShooting?", false);
         }
@@ -104,7 +108,7 @@ public class Mobster : Enemy
         {
             rb2d.velocity = Vector2.zero;
         }
-        animator.SetFloat("AbsEnemyVelocity", Mathf.Abs(rb2d.velocity.x) );
+        animator.SetFloat("AbsEnemyVelocity", Mathf.Abs(rb2d.velocity.x));
     }
 
 }
