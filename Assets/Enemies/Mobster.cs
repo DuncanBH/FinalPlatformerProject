@@ -57,6 +57,7 @@ public class Mobster : Enemy
         Vector3 directionVector = new Vector3(isFacingRight ? 1 : -1, 0, 0);
 
         RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, directionVector, viewDistance, _layerMask);
+        Debug.DrawRay(transform.position, directionVector * viewDistance, Color.blue);
         //Debug.DrawRay(transform.position, directionVector * viewDistance, Color.blue);
 
         if (raycastHit)
