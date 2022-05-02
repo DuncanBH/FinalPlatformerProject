@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour, IDamagable
     public int Health { get; private set; }
 
     //Component
-    Animator animator;
+    protected Animator animator;
 
     void Awake()
     {

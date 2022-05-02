@@ -7,8 +7,6 @@ using UnityEngine;
 public class Mobster : Enemy
 {
     //Control Varibales
-    
-
     [SerializeField]
     private bool DoPatrol = false;
     [SerializeField]
@@ -58,38 +56,17 @@ public class Mobster : Enemy
         //Search until player is found, then shoot
         Vector3 directionVector = new Vector3(isFacingRight ? 1 : -1, 0, 0);
 
-        //RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, directionVector, viewDistance, _layerMask);
         RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, directionVector, viewDistance, _layerMask);
-        Debug.DrawRay(transform.position, directionVector * viewDistance, Color.blue);
+        //Debug.DrawRay(transform.position, directionVector * viewDistance, Color.blue);
 
-        /*
-        //try this: _found = false
-        foreach (RaycastHit2D raycast in hits)
-        {
-            if (raycast.collider.gameObject.layer == _playerLayer)
-            {
-                _found = true;
-
-                if (_shootTimer > timeBetweenShots)
-                {
-                    Bullet bullet = Instantiate(this.bullet, transform.position, transform.rotation).GetComponent<Bullet>();
-                    bullet.direction = Vector2.right;
-                    _shootTimer = 0.0f;
-                }
-
-            }
-            else
-            {
-                _found = false;
-                break;
-            }
-        }/**/
         if (raycastHit)
         {
             if (raycastHit.collider.gameObject.layer == _playerLayer)
             {
+                animator.SetBool("IsShooting?", true);
+                Debug.Log("SEEN");
                 _found = true;
-
+                
                 if (_shootTimer > timeBetweenShots)
                 {
                     Bullet bullet = Instantiate(this.bullet, transform.position, transform.rotation).GetComponent<Bullet>();
@@ -101,7 +78,9 @@ public class Mobster : Enemy
         }
         else
         {
+            Debug.Log("UNSEEN");
             _found = false;
+            animator.SetBool("IsShooting?", false);
         }
     }
 
@@ -125,6 +104,7 @@ public class Mobster : Enemy
         {
             rb2d.velocity = Vector2.zero;
         }
+        animator.SetFloat("AbsEnemyVelocity", Mathf.Abs(rb2d.velocity.x) );
     }
 
 }

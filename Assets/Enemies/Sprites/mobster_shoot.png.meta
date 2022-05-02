@@ -67,7 +67,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 8
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -89,7 +89,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -101,7 +101,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,7 +113,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -127,12 +127,12 @@ TextureImporter:
       name: mobster_shoot_0
       rect:
         serializedVersion: 2
-        x: 10
+        x: 7
         y: 3
-        width: 9
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 18
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -150,10 +150,10 @@ TextureImporter:
         serializedVersion: 2
         x: 30
         y: 3
-        width: 13
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 18
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -169,12 +169,12 @@ TextureImporter:
       name: mobster_shoot_2
       rect:
         serializedVersion: 2
-        x: 54
+        x: 53
         y: 3
-        width: 13
+        width: 18
         height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -190,12 +190,12 @@ TextureImporter:
       name: mobster_shoot_3
       rect:
         serializedVersion: 2
-        x: 80
+        x: 76
         y: 3
-        width: 10
+        width: 18
         height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -211,12 +211,12 @@ TextureImporter:
       name: mobster_shoot_4
       rect:
         serializedVersion: 2
-        x: 103
+        x: 99
         y: 3
-        width: 9
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 18
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -232,12 +232,12 @@ TextureImporter:
       name: mobster_shoot_5
       rect:
         serializedVersion: 2
-        x: 125
+        x: 122
         y: 3
-        width: 9
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 18
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -253,12 +253,12 @@ TextureImporter:
       name: mobster_shoot_6
       rect:
         serializedVersion: 2
-        x: 148
+        x: 145
         y: 3
-        width: 9
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 18
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
