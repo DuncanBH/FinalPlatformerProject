@@ -35,6 +35,6 @@ public class PlayerManager : MonoBehaviour, IDamagable
         playerMovement.enabled = false;
         yield return new WaitForSeconds(1.5f);
         menuSystem.GameOver();
-        Destroy(this.gameObject);
+        
     }
 }
