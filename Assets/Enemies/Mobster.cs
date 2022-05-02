@@ -21,6 +21,8 @@ public class Mobster : Enemy
     private float viewDistance = 10;
     [SerializeField]
     private bool isFacingRight = true;
+    [SerializeField]
+    public AudioClip gunShotSound;
 
     //Object References
     [SerializeField]
@@ -29,6 +31,7 @@ public class Mobster : Enemy
     //Components
     Rigidbody2D rb2d;
     new Transform transform;
+    AudioSource audioSource;
 
     //Internal variables
     bool _found = false;
@@ -43,6 +46,7 @@ public class Mobster : Enemy
     {
         rb2d = GetComponent<Rigidbody2D>();
         transform = GetComponent<Transform>();
+        audioSource = GetComponent<AudioSource>();
 
         _layerMask = LayerMask.GetMask("Player") | LayerMask.GetMask("Ground");
         _playerLayer = LayerMask.NameToLayer("Player");
@@ -72,6 +76,7 @@ public class Mobster : Enemy
                     Bullet bullet = Instantiate(this.bullet, transform.position, transform.rotation).GetComponent<Bullet>();
                     bullet.direction = Vector2.right;
                     _shootTimer = 0.0f;
+                    audioSource.PlayOneShot(gunShotSound);    
                 }
                 _shootTimer += Time.deltaTime;
             }

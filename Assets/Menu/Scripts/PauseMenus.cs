@@ -90,7 +90,6 @@ public class PauseMenus : MonoBehaviour
     public void GameOver()
     {
         gameOver.GetComponent<Canvas>().enabled = true;
-        Time.timeScale = 0f;
     }
     IEnumerator LoadLevel(string level)
     {

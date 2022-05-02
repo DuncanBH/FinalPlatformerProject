@@ -12,11 +12,16 @@ public class PlayerManager : MonoBehaviour, IDamagable
     
     Animator animator;
     PlayerMovement playerMovement;
+    Rigidbody2D rb2d;
+    BoxCollider2D boxCollider;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         playerMovement = GetComponent<PlayerMovement>();
+        rb2d = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
+
     }
 
     public void takeDamage(int damage)
@@ -33,7 +38,10 @@ public class PlayerManager : MonoBehaviour, IDamagable
     {
         animator.SetBool("IsDead?", true);
         playerMovement.enabled = false;
+        rb2d.velocity = Vector2.zero;
         yield return new WaitForSeconds(1.5f);
+        rb2d.isKinematic = true;
+        boxCollider.enabled = false;
         menuSystem.GameOver();
         
     }
