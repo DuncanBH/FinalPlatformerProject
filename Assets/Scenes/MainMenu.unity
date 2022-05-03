@@ -880,7 +880,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &346542561
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,7 +1099,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 834164932}
         m_TargetAssemblyTypeName: MainMenus, Assembly-CSharp
-        m_MethodName: LoadLevel3
+        m_MethodName: StartLevel3
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1318,7 +1318,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &444301254
 GameObject:
   m_ObjectHideFlags: 0
@@ -1545,10 +1545,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1351990256}
   m_HandleRect: {fileID: 1339706556}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 0
   m_WholeNumbers: 0
-  m_Value: 0.417
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1977,7 +1977,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &537062046
 GameObject:
   m_ObjectHideFlags: 0
@@ -2631,7 +2631,7 @@ MonoBehaviour:
   songMute: {fileID: 327053471}
   FXVolumeSlider: {fileID: 1842185536}
   FXMute: {fileID: 428487215}
-  MasterMixer: {fileID: 0}
+  MasterMixer: {fileID: 24100000, guid: b4cdb75ac9a06d54782c93f30ecde2cd, type: 2}
 --- !u!1 &872757935
 GameObject:
   m_ObjectHideFlags: 0
@@ -4532,10 +4532,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1048653739}
   m_HandleRect: {fileID: 1083380322}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 0
   m_WholeNumbers: 0
-  m_Value: 0.417
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -4919,7 +4919,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 834164932}
         m_TargetAssemblyTypeName: MainMenus, Assembly-CSharp
-        m_MethodName: LoadLevel2
+        m_MethodName: StartLevel2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6332,10 +6332,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 275492592}
   m_HandleRect: {fileID: 1684316006}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 0
   m_WholeNumbers: 0
-  m_Value: 0.417
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

@@ -16,8 +16,8 @@ TagManager:
   - Player
   - Ground
   - CameraBounds
-  - 
-  - 
+  - Bullet
+  - LevelBounds
   - 
   - 
   - 

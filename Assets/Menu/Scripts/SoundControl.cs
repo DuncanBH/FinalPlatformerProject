@@ -30,9 +30,10 @@ public class SoundControl : MonoBehaviour
 
     public void ChangeSound()
     {
+        
         if (mainMute.GetComponent<Toggle>().isOn)
         {
-            MasterMixer.SetFloat("masterVolume", 0);
+            MasterMixer.SetFloat("masterVolume", -80);
         }
         else
         {
@@ -41,20 +42,20 @@ public class SoundControl : MonoBehaviour
 
         if (songMute.GetComponent<Toggle>().isOn)
         {
-            MasterMixer.SetFloat("musicVolume", 0);
+            MasterMixer.SetFloat("musicVolume", -80);
         }
         else
         {
-            MasterMixer.SetFloat("musicVolume", mainVolumeSlider.value);
+            MasterMixer.SetFloat("musicVolume", songVolumeSlider.value);
         }
 
         if (FXMute.GetComponent<Toggle>().isOn)
         {
-            MasterMixer.SetFloat("fxVolume", 0);
+            MasterMixer.SetFloat("fxVolume", -80);
         }
         else
         {
-            MasterMixer.SetFloat("fxVolume", mainVolumeSlider.value);
+            MasterMixer.SetFloat("fxVolume", FXVolumeSlider.value);
         }
 
 

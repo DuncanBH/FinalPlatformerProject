@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 9200627532831556387, guid: 8c8a0dc15e8a7b446af44215e0a6f145, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -130,7 +130,7 @@ MonoBehaviour:
   speed: 1
   leftX: 0
   rightX: 0
-  viewDistance: 7
+  viewDistance: 9
   isFacingRight: 1
   gunShotSound: {fileID: 8300000, guid: eb0d8e32a3594b043af10d19249e3166, type: 3}
   bullet: {fileID: 59403923570649138, guid: 4ce0993da7a4d274590921354787546e, type: 3}
