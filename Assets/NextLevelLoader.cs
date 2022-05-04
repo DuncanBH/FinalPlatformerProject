@@ -11,6 +11,9 @@ public class NextLevelLoader : MonoBehaviour
 
     public float transtionTime = 1f;
 
+    [SerializeField]
+    GameObject soundSystem;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -23,6 +26,8 @@ public class NextLevelLoader : MonoBehaviour
         transition.SetTrigger("Start");
 
         yield return new WaitForSeconds(transtionTime);
+
+        DestroyImmediate(soundSystem,true);
 
         SceneManager.LoadScene(level);
     }
