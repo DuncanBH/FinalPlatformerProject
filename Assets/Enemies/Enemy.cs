@@ -6,12 +6,18 @@ public class Enemy : MonoBehaviour, IDamagable
 {
     [SerializeField]
     public int Health { get; protected set; }
+    [SerializeField]
+    float pointsValue = 0;
+
+    ScoreKeeper scoreKeeper;
+
 
     //Component
     protected Animator animator;
 
     void Awake()
     {
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
         animator = GetComponent<Animator>();
     }
     public virtual void takeDamage(int damage)
@@ -30,6 +36,7 @@ public class Enemy : MonoBehaviour, IDamagable
     /// </summary>
     protected virtual void EntityDie()
     {
+        scoreKeeper.AddScore(pointsValue);
         Destroy(this.gameObject);
     }
 }
