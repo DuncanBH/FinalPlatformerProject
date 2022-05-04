@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Crab : Enemy
 {
+    [SerializeField]
+    private bool StartGiant = false;
     private static bool playingMusic;
     private float jumpTimer;
 
@@ -12,7 +14,7 @@ public class Crab : Enemy
 
     void Start()
     {
-        if (Random.Range(1, 100) > 95)
+        if (Random.Range(1, 100) > 90 || StartGiant)
         {
             this.transform.localScale = new Vector3(10, 10, 1);
             Debug.Log("Giant enemy crab! pos: " + transform.position + " scale: " + transform.localScale);
@@ -40,7 +42,6 @@ public class Crab : Enemy
     {
         if (jumpTimer > 10f)
         {
-            Debug.Log("Jump!");
             rigidbody.AddForce(Vector2.up * 4f, ForceMode2D.Impulse);
             jumpTimer = 0.0f;
         }
