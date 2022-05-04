@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenus : MonoBehaviour
 {
+    static bool videoPlayed = false;
     [SerializeField]
     string firstLevel;
     [SerializeField]
@@ -60,7 +61,15 @@ public class MainMenus : MonoBehaviour
 
     public void Start()
     {
-        StartCoroutine(AppearMenu());
+        if (videoPlayed)
+        {
+            mainMenu.SetActive(true);
+        }
+        else
+        {
+            StartCoroutine(AppearMenu());
+            videoPlayed = true;
+        }
     }
 
     IEnumerator LoadLevel(string level)

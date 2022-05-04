@@ -23,6 +23,9 @@ public class PauseMenus : MonoBehaviour
     public Animator transition;
     public float transtionTime = 1f;
 
+    [SerializeField]
+    GameObject soundSystem;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -96,6 +99,8 @@ public class PauseMenus : MonoBehaviour
         transition.SetTrigger("Start");
 
         yield return new WaitForSeconds(transtionTime);
+
+        DestroyImmediate(soundSystem, true);
 
         SceneManager.LoadScene(level);
     }
