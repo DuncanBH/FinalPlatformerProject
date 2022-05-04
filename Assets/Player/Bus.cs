@@ -22,17 +22,11 @@ public class Bus : Enemy
     /// </summary>
     protected override void EntityDie()
     {
-        Instantiate(crab, transform.position, Quaternion.identity);
-        Instantiate(crab, transform.position * 1.1f, Quaternion.identity);
-        Instantiate(crab, transform.position, Quaternion.identity);
-        Instantiate(crab, transform.position, Quaternion.identity);
-        Instantiate(crab, transform.position, Quaternion.identity);
-        Instantiate(crab, transform.position, Quaternion.identity);
-        Instantiate(crab, transform.position, Quaternion.identity);
-        Instantiate(crab, transform.position, Quaternion.identity);
-        Instantiate(crab, transform.position, Quaternion.identity);
-        Instantiate(crab, transform.position, Quaternion.identity);
-        Instantiate(crab, transform.position, Quaternion.identity);
+        Vector3 position = this.transform.position + new Vector3(0, 3, 0);
+        for (int i = 0; i < 10; i++ )
+        {
+            Instantiate(crab, position, Quaternion.identity);
+        }
         Destroy(this.gameObject);
     }
 }

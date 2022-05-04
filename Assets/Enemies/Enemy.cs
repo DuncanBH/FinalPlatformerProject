@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IDamagable
 {
     [SerializeField]
-    public int Health { get; private set; }
+    public int Health { get; protected set; }
 
     //Component
     protected Animator animator;
@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour, IDamagable
     {
         animator = GetComponent<Animator>();
     }
-    public void takeDamage(int damage)
+    public virtual void takeDamage(int damage)
     {
         Health -= damage;
 
