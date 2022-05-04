@@ -23,6 +23,8 @@ public class NextLevelLoader : MonoBehaviour
     }
     IEnumerator LoadLevel(string level)
     {
+        FindObjectOfType<KeepSound>().StopMusic();
+
         transition.SetTrigger("Start");
 
         yield return new WaitForSeconds(transtionTime);

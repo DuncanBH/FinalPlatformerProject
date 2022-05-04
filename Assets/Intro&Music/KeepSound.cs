@@ -15,4 +15,9 @@ public class KeepSound : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
     }
+
+    public void StopMusic()
+    {
+        Destroy(this.gameObject);
+    }
 }
