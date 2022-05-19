@@ -11,9 +11,12 @@ public class Bullet : MonoBehaviour, IDamagable
     [SerializeField]
     float speed;
 
+    AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         Destroy(gameObject, 10);
     }
 
@@ -32,7 +35,7 @@ public class Bullet : MonoBehaviour, IDamagable
             hit.takeDamage(attackDamage);
 
         }
-        if(collision.tag != "Enemy")
+        if(collision.tag != "Enemy"&& collision.tag != "Sword")
         {
             Destroy(gameObject);
         }
@@ -40,6 +43,9 @@ public class Bullet : MonoBehaviour, IDamagable
 
     public void takeDamage(int damage)
     {
-        Destroy(this.gameObject, 0.2f);
+        audioSource.Play();
+        gameObject.GetComponent<Collider2D>().enabled = false;
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        //Destroy(this.gameObject,1f);
     }
 }

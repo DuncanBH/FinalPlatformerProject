@@ -68,7 +68,7 @@ public class PauseMenus : MonoBehaviour
     }
     public void MainMenu()
     {
-        StartCoroutine(LoadLevel(mainMenu));
+        StartCoroutine(LoadLevel(mainMenu,true));
         Time.timeScale = 1f;
     }
 
@@ -86,7 +86,7 @@ public class PauseMenus : MonoBehaviour
     }
     public void Restart()
     {
-        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().name));
+        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().name,false));
         Time.timeScale = 1f;
     }
 
@@ -94,11 +94,20 @@ public class PauseMenus : MonoBehaviour
     {
         gameOver.GetComponent<Canvas>().enabled = true;
     }
-    IEnumerator LoadLevel(string level)
+    IEnumerator LoadLevel(string level,bool stopMusic)
     {
         transition.SetTrigger("Start");
 
         yield return new WaitForSeconds(transtionTime);
+
+        if (stopMusic)
+        {
+            if (FindObjectOfType<KeepSound>() != null)
+            {
+                FindObjectOfType<KeepSound>().StopMusic();
+            }
+        }
+        
 
         DestroyImmediate(soundSystem, true);
 

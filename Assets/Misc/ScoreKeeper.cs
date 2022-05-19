@@ -19,4 +19,10 @@ public class ScoreKeeper : MonoBehaviour
     {
         Score += points;
     }
+    public void ResetScore()
+    {
+        Score =0;
+    }
+
+
 }

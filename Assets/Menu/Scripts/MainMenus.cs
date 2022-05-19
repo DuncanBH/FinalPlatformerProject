@@ -19,6 +19,8 @@ public class MainMenus : MonoBehaviour
     GameObject mainMenu;
     [SerializeField]
     GameObject levelSelect;
+    [SerializeField]
+    GameObject wipe;
 
     public Animator transition;
     public float transtionTime = 1f;
@@ -30,10 +32,6 @@ public class MainMenus : MonoBehaviour
     public void StartLevel2()
     {
         StartCoroutine(LoadLevel(secondLevel));
-    }
-    public void StartLevel3()
-    {
-        StartCoroutine(LoadLevel(thirdLevel));
     }
 
     public void ExitGame()
@@ -67,8 +65,11 @@ public class MainMenus : MonoBehaviour
         }
         else
         {
+            wipe.SetActive(false);
             StartCoroutine(AppearMenu());
             videoPlayed = true;
+            wipe.SetActive(true);
+
         }
     }
 
